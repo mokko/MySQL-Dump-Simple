@@ -1,0 +1,132 @@
+NAME
+    Mysql::Dump::Simple - Simple OO interface to mysqldump
+
+VERSION
+    Version 0.01
+
+SYNOPSIS
+        use Mysql::Dump::Simple;
+
+        my $dumper = Mysql::Dump::Simple->new('/usr/bin/mysqldump');
+            #add single command line options (one or two options)
+            $dumper->config ('quick');
+            $dumper->config ('compatible','oracle');
+
+            #set of preconfigured configuration options
+            $dumper->config_1;
+
+            #report on mysqldump version
+            my $version=$dumper->version
+
+            #separate methods for user,pass, db
+            $dumper->user ($user);
+            $dumper->password ($pass)
+            $dumper->database($db)
+
+            #execute mysqldump
+            $response=$dumper->run;
+            #alternatively write to file directly
+            $response=$dumper->run($filename);
+
+            #check for error from run
+            if ($dumper->isError) {
+                    print $response
+            }
+
+DESCRIPTION
+    This is a simple and not particular safe or fast way to use mysqldump
+    from perl.
+
+    STDERR and STDOUT: As a rule of thumb, return nothing on failure and 1
+    on success (which seems good for testing). Where this doesn't work since
+    another return value expected use isError.
+
+    Should we reset isError's error status after accessing it? No. Just make
+    a new Mysql::Dump::Simple object when you're done.
+
+    Use Data::Dumper to inspect Mysql::Dump::Simple object. It contains
+    debug info in self->{cmd}.
+
+SECURITY CONCERNS
+    -you might be able to see password using ps -you could relatively easy
+    replace the bin for mysqldump
+
+LIMITED SMARTNESS
+    Mysql::Dump::Simple tries not to be particularly smart; instead it tries
+    to be what you expect it to do, e.g. construct a command line with the
+    parameters you hand over to it.
+
+    However, limited smartness is provided: -if you don't specify any
+    database, it will add --all-databases
+
+METHODS
+  my $dumper = Mysql::Dump::Simple->new('/usr/bin/mysqldump');
+  config
+  $dumper->config_1;
+    Use quick, add-locks, add-drop-table and if mysql version permits it
+    date-dump.
+
+  my $version=$dumper->version;
+    Return version info of mysqldump. Several forms so one can quickly test
+    against it:
+
+    my $version=$dumper->version(full); #full reply from mysqldump my
+    $version=$dumper->version(numeric); #contract version to number e.g.
+    '5234' my $version=$dumper->version(); #extract string e.g. '5.0.45a'
+
+  user
+  password
+  database
+  run
+  isError
+AUTHOR
+    Maurice Mengel, "<mauricemengel at gmail.com>"
+
+BUGS
+    Please report any bugs or feature requests to "bug-mysql-dump-simple at
+    rt.cpan.org", or through the web interface at
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Mysql-Dump-Simple>. I
+    will be notified, and then you'll automatically be notified of progress
+    on your bug as I make changes.
+
+INSTALLATION
+    To install this module, run the following commands:
+
+            perl Makefile.PL
+            make
+            make test
+            make install
+
+SUPPORT
+    You can find documentation for this module with the perldoc command.
+
+        perldoc Mysql::Dump::Simple
+
+    You can also look for information at:
+
+    *   RT: CPAN's request tracker
+
+        <http://rt.cpan.org/NoAuth/Bugs.html?Dist=Mysql-Dump-Simple>
+
+    *   AnnoCPAN: Annotated CPAN documentation
+
+        <http://annocpan.org/dist/Mysql-Dump-Simple>
+
+    *   CPAN Ratings
+
+        <http://cpanratings.perl.org/d/Mysql-Dump-Simple>
+
+    *   Search CPAN
+
+        <http://search.cpan.org/dist/Mysql-Dump-Simple/>
+
+ACKNOWLEDGEMENTS
+LICENSE AND COPYRIGHT
+    Copyright 2010 Maurice Mengel.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the terms of either: the GNU General Public License as published
+    by the Free Software Foundation; or the Artistic License.
+
+    See http://dev.perl.org/licenses/ for more information.
+
