@@ -1,4 +1,4 @@
-package Mysql::Dump::Simple;
+package MySQL::Dump::Simple;
 
 use warnings;
 use strict;

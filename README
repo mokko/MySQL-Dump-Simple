@@ -1,13 +1,13 @@
 NAME
-    Mysql::Dump::Simple - Simple OO interface to mysqldump
+    MySQL::Dump::Simple - Simple OO interface to mysqldump
 
 VERSION
     Version 0.01
 
 SYNOPSIS
-        use Mysql::Dump::Simple;
+        use MySQL::Dump::Simple;
 
-        my $dumper = Mysql::Dump::Simple->new('/usr/bin/mysqldump');
+        my $dumper = MySQL::Dump::Simple->new('/usr/bin/mysqldump');
             #add single command line options (one or two options)
             $dumper->config ('quick');
             $dumper->config ('compatible','oracle');
@@ -42,9 +42,9 @@ DESCRIPTION
     another return value expected use isError.
 
     Should we reset isError's error status after accessing it? No. Just make
-    a new Mysql::Dump::Simple object when you're done.
+    a new MySQL::Dump::Simple object when you're done.
 
-    Use Data::Dumper to inspect Mysql::Dump::Simple object. It contains
+    Use Data::Dumper to inspect MySQL::Dump::Simple object. It contains
     debug info in self->{cmd}.
 
 SECURITY CONCERNS

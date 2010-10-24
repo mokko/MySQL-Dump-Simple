@@ -4,11 +4,11 @@ use strict;
 use warnings;
 
 use lib 'lib';
-use Mysql::Dump::Simple;
+use MySQL::Dump::Simple;
 use Data::Dumper;
 
 
-my $dumper=Mysql::Dump::Simple->new('/cygdrive/C/Program Files/mysql/bin/mysqldump');
+my $dumper=MySQL::Dump::Simple->new('/cygdrive/C/Program Files/mysql/bin/mysqldump');
 
 if ($dumper) {
 	print "D exists\n";
